@@ -12,7 +12,7 @@ size = 10
 
 clock = pygame.time.Clock()
 
-cobra = Cobrinha(1, 1, BLUE, GREEN)
+cobra = Cobrinha(1, 1)
 
 comida = Comida(0, 0)
 comida.change_place(cobra)
@@ -63,8 +63,6 @@ def main():
                             cobra.go_down()
                         if event.key == pygame.K_d and not cobra.left:
                             cobra.go_right()
-                    if event.key == pygame.K_g:
-                        cobra.len += 1
             else:
                 endscreen.events(event, cobra)
 

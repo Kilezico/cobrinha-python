@@ -4,7 +4,7 @@ from math import floor
 from random import choice
 
 class Cobrinha:
-    def __init__(self, x, y):
+    def __init__(self, x, y, c1=BLACK, c2=PINK):
         self.x = x
         self.y = y
         self.width = PIXEL_LEN
@@ -22,11 +22,13 @@ class Cobrinha:
 
         self.len = 1
 
-        self.color1 = BLACK
-        self.color2 = GRAY    
+        self.color1 = c1
+        self.color2 = c2
 
         self.som_perdeu = pygame.mixer.Sound('assets/pou_perdendo.wav')
         self.som_perdeu.set_volume(0.3)
+
+        self.euconut_cabeca = pygame.transform.scale(pygame.image.load('assets/icon.png'), (PIXEL_LEN, PIXEL_LEN))
 
         self.cauda = []
 
@@ -46,12 +48,23 @@ class Cobrinha:
 
     def draw(self, win):
         colors = self.get_color()
-        pygame.draw.rect(win, self.color1, (self.x * PIXEL_LEN, self.y * PIXEL_LEN, PIXEL_LEN, PIXEL_LEN))
-
+        if self.color1 != WHITE:
+            pygame.draw.rect(win, self.color1, (self.x * PIXEL_LEN, self.y * PIXEL_LEN, PIXEL_LEN, PIXEL_LEN))
+        else:
+            if self.left:
+                img = pygame.transform.rotate(self.euconut_cabeca, 90)
+            elif self.right:
+                img = pygame.transform.rotate(self.euconut_cabeca, -90)
+            elif self.down:
+                img = pygame.transform.rotate(self.euconut_cabeca, 180)
+            else:
+                img = self.euconut_cabeca
+            win.blit(img, (self.x * PIXEL_LEN, self.y * PIXEL_LEN))
+        
         for i in range(len(self.cauda)):
             piece = self.cauda[i]
             pygame.draw.rect(win, colors[i], (piece.x * PIXEL_LEN, piece.y * PIXEL_LEN, PIXEL_LEN, PIXEL_LEN))
-                
+            
 
     def update(self):
         if self.len > len(self.cauda):
@@ -71,7 +84,7 @@ class Cobrinha:
             self.y += 1
 
         self.mexeu = False
-        
+
         if self.x < 0 or self.x >= COLS or self.y < 0 or self.y >= ROWS:
             self.morre()
         for piece in self.cauda:
@@ -89,12 +102,12 @@ class Cobrinha:
 
         self.color1, self.color2 = choice([
             (BLUE, GREEN),
-            (BLACK, GREEN),
-            (YELLOW, BLUE),
+            (WHITE, BLUE),
             (BLACK, PINK),
-            (PINK, BLUE),
-            (PINK, GREEN),
-            (GREEN, BLUE)
+            (BLUE, PINK),
+            (BLACK, CYAN),
+            (WHITE, PINK),
+            (WHITE, CYAN)
         ])
 
         
