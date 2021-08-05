@@ -43,6 +43,7 @@ def events(event, cobra):
                 cobra.end = False
             if retry.is_inside(pos):
                 cobra.end = False
+                pygame.mixer.music.play(-1)
             if quit.is_inside(pos):
                 pygame.quit()
                 exit()

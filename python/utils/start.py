@@ -21,6 +21,7 @@ def event(event, cobra):
         if event.button == pygame.BUTTON_LEFT:
             if button.is_inside(pygame.mouse.get_pos()):
                 cobra.start = False
+                pygame.mixer.music.play(-1)
 
 
 def update():

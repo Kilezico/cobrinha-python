@@ -7,3 +7,4 @@ from . import start, endscreen
 import pygame
 pygame.init()
 pygame.font.init()
+pygame.mixer.init()

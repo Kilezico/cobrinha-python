@@ -1,9 +1,10 @@
 import pygame
 from .settings import *
 from math import floor
+from random import choice
 
 class Cobrinha:
-    def __init__(self, x, y, c1=RED, c2=RED):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
         self.width = PIXEL_LEN
@@ -20,8 +21,12 @@ class Cobrinha:
         self.end = False
 
         self.len = 1
-        self.color1 = c1
-        self.color2 = c2
+
+        self.color1 = RED
+        self.colo2 = BLUE        
+
+        self.som_perdeu = pygame.mixer.Sound('assets/pou_perdendo.wav')
+        self.som_perdeu.set_volume(0.3)
 
         self.cauda = []
 
@@ -74,11 +79,24 @@ class Cobrinha:
                 self.morre()
 
     def morre(self):
+        self.som_perdeu.play()
         self.x = 1
         self.y = 1
         self.cauda.clear()
         self.end = True
         self.go_right()
+        pygame.mixer.music.stop()
+
+        self.color1, self.color2 = choice([
+            (BLUE, GREEN),
+            (RED, GREEN),
+            (YELLOW, BLUE)
+            (PINK, RED),
+            (PINK, BLUE),
+            (PINK, GREEN)
+        ])
+
+        
 
     def go_left(self):
         self.down = False

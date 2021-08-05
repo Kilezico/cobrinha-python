@@ -3,6 +3,8 @@ from utils import *
 DISPLAY = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption(TITLE)
 pygame.display.set_icon(pygame.image.load('assets/icon.png'))
+pygame.mixer.music.load('assets/pou_cliff_jump.wav')
+pygame.mixer.music.set_volume(0.2)
 
 euconut = pygame.transform.scale(pygame.image.load('assets/icon.png'), (WIDTH, HEIGHT))
 
@@ -29,6 +31,12 @@ def draw():
             draw_grid(DISPLAY, GRAY)
         cobra.draw(DISPLAY)
         comida.draw(DISPLAY)
+
+        txt, rect = get_text(pygame.font.SysFont('freemono', 20), f'Pontuação: {cobra.len - 1}', BLACK)
+        rect.x = 5
+        rect.y = 5
+        DISPLAY.blit(txt, rect)
+
     else:
         endscreen.draw(DISPLAY, cobra.len)
 
