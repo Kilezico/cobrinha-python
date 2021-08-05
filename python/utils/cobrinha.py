@@ -14,6 +14,9 @@ class Cobrinha:
         self.up = False
         self.walk_count = 0
         self.mexeu = False
+        
+        self.started = False
+        self.ended = False
 
         self.len = 1
         self.color1 = c1
@@ -22,27 +25,23 @@ class Cobrinha:
         self.cauda = []
 
     def get_color(self):
-        color = [
-            [self.color1[0]],
-            [self.color1[1]],
-            [self.color1[2]]
-        ]
-        for i in range(3):
-            delta = self.color1[i] - self.color2[i]
-            step = delta // self.len
-            for i in range(self.len):
-                color[i].append(self.color1[i] + step)
+        color = []
+        if len(self.cauda) > 0:
+            for i in range(3):
+                color.append([])
+                step = (self.color2[i] - self.color1[i]) // len(self.cauda)
+                for j in range(len(self.cauda)):
+                    color[i].append(self.color2[i] - j * step)
 
         return list(zip(*color))
 
     def draw(self, win):
         colors = self.get_color()
-        pygame.draw.rect(win, colors[0], (self.x * PIXEL_LEN, self.y * PIXEL_LEN, PIXEL_LEN, PIXEL_LEN))
+        pygame.draw.rect(win, self.color1, (self.x * PIXEL_LEN, self.y * PIXEL_LEN, PIXEL_LEN, PIXEL_LEN))
 
         for i in range(len(self.cauda)):
             piece = self.cauda[i]
-            j = len(colors) - i
-            pygame.draw.rect(win, colors[j], (piece.x * PIXEL_LEN, piece.y * PIXEL_LEN, PIXEL_LEN, PIXEL_LEN))
+            pygame.draw.rect(win, colors[i], (piece.x * PIXEL_LEN, piece.y * PIXEL_LEN, PIXEL_LEN, PIXEL_LEN))
         
     def update(self):
         if self.len > len(self.cauda):
@@ -63,6 +62,13 @@ class Cobrinha:
 
         self.mexeu = False
         
+        if self.x < 0 or self.x >= COLS or self.y < 0 or self.y >= ROWS:
+            self.morre()
+
+
+    def morre(self):
+        self.ended = True
+
     def go_left(self):
         self.down = False
         self.right = False

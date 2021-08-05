@@ -4,16 +4,30 @@ DISPLAY = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption(TITLE)
 pygame.display.set_icon(pygame.image.load('assets/icon.png'))
 
+euconut = pygame.transform.scale(pygame.image.load('assets/icon.png'), (WIDTH, HEIGHT))
+
+
 clock = pygame.time.Clock()
 
-cobra = Cobrinha(0, 0)
+cobra = Cobrinha(0, 0, BLUE, GREEN)
+
+comida = Comida(0, 0)
+comida.change_place(cobra)
 
 def draw():
     DISPLAY.fill(BG_COLOR)
+    DISPLAY.blit(euconut, (0, 0))
+    surf = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
+    surf.fill((*BG_COLOR, 200))
+    DISPLAY.blit(surf, (0, 0))
+
+
     if DRAW_GRID:
-        draw_grid(DISPLAY, BLACK)
+        draw_grid(DISPLAY, GRAY)
 
     cobra.draw(DISPLAY)
+
+    comida.draw(DISPLAY)
 
     pygame.display.update()
 
@@ -42,6 +56,8 @@ def main():
             cobra.walk_count = 0
         else:
             cobra.walk_count += 1
+
+        comida.update(cobra)
 
         draw()
 
