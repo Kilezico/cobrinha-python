@@ -19,9 +19,9 @@ class Comida():
             self.change_place(player)
     
     def change_place(self, player):
-        possible_places = [(i, j) for i in range(10) for j in range(10)]
+        possible_places = [(i, j) for i in range(ROWS) for j in range(COLS)]
         possible_places.pop(possible_places.index((player.x, player.y)))
         for piece in player.cauda:
             possible_places.pop(possible_places.index((piece.x, piece.y)))
-        
-        self.x, self.y = choice(possible_places)
+        if len(possible_places) > 0:
+            self.x, self.y = choice(possible_places)

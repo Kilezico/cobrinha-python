@@ -5,16 +5,20 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
-GRAY = (100, 100, 100)
+GRAY = (150, 150, 150)
+YELLOW = (255, 255, 0)
 
 FPS = 60
 
 WIDTH, HEIGHT = 600, 600
-ROWS = COLS = 10
+ROWS = COLS = 12
 PIXEL_LEN = WIDTH / ROWS
 BG_COLOR = WHITE
 DRAW_GRID = True
 TITLE = 'Cobrinha'
+
+Start = True
+End = False
 
 def draw_grid(win, color):
     for r in range(ROWS + 1):
@@ -25,3 +29,7 @@ def draw_grid(win, color):
         pygame.draw.line(win, color, (c * PIXEL_LEN, 0), (c * PIXEL_LEN, HEIGHT))
         pygame.draw.line(win, color, (c * PIXEL_LEN - 1, 0), (c * PIXEL_LEN - 1, HEIGHT))
 
+def get_text(font, text, color, back=None):
+    txt_sfr = font.render(text, False, color, back)
+    txt_rect = txt_sfr.get_rect()
+    return txt_sfr, txt_rect
