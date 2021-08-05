@@ -22,8 +22,8 @@ class Cobrinha:
 
         self.len = 1
 
-        self.color1 = RED
-        self.colo2 = BLUE        
+        self.color1 = BLACK
+        self.color2 = GRAY    
 
         self.som_perdeu = pygame.mixer.Sound('assets/pou_perdendo.wav')
         self.som_perdeu.set_volume(0.3)
@@ -89,11 +89,12 @@ class Cobrinha:
 
         self.color1, self.color2 = choice([
             (BLUE, GREEN),
-            (RED, GREEN),
-            (YELLOW, BLUE)
-            (PINK, RED),
+            (BLACK, GREEN),
+            (YELLOW, BLUE),
+            (BLACK, PINK),
             (PINK, BLUE),
-            (PINK, GREEN)
+            (PINK, GREEN),
+            (GREEN, BLUE)
         ])
 
         
