@@ -25,7 +25,7 @@ class Cobrinha:
         self.color1 = c1
         self.color2 = c2
 
-        self.som_perdeu = pygame.mixer.Sound('assets/pou_perdendo.wav')
+        self.som_perdeu = pygame.mixer.Sound('assets/death.wav')
         self.som_perdeu.set_volume(0.3)
 
         self.euconut_cabeca = pygame.transform.scale(pygame.image.load('assets/icon.png'), (PIXEL_LEN, PIXEL_LEN))
@@ -64,7 +64,7 @@ class Cobrinha:
         for i in range(len(self.cauda)):
             piece = self.cauda[i]
             pygame.draw.rect(win, colors[i], (piece.x * PIXEL_LEN, piece.y * PIXEL_LEN, PIXEL_LEN, PIXEL_LEN))
-            
+
 
     def update(self):
         if self.len > len(self.cauda):
