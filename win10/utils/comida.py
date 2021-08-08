@@ -11,7 +11,7 @@ class Comida():
         self.color = c
 
     def draw(self, win):
-        pygame.draw.rect(win, self.color, (self.x * PIXEL_LEN, self.y * PIXEL_LEN, self.width, self.height))
+        pygame.draw.rect(win, self.color, (self.x * PIXEL_LEN, self.y * PIXEL_LEN + TOPBAR, self.width, self.height))
     
     def update(self, player):
         if self.x == player.x and self.y == player.y:
