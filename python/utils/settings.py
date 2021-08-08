@@ -12,8 +12,9 @@ CYAN = (0, 255, 255)
 
 FPS = 60
 
-WIDTH, HEIGHT = 600, 600
+WIDTH, HEIGHT = 600, 650
 ROWS = COLS = 12
+TOPBAR = HEIGHT - WIDTH
 PIXEL_LEN = WIDTH // ROWS
 BG_COLOR = WHITE
 DRAW_GRID = True
@@ -24,12 +25,12 @@ End = False
 
 def draw_grid(win, color):
     for r in range(ROWS + 1):
-        pygame.draw.line(win, color, (0, r * PIXEL_LEN), (WIDTH, r * PIXEL_LEN))
-        pygame.draw.line(win, color, (0, r * PIXEL_LEN + 1), (WIDTH, r * PIXEL_LEN + 1))
+        pygame.draw.line(win, color, (0, r * PIXEL_LEN + TOPBAR), (WIDTH, r * PIXEL_LEN + TOPBAR))
+        pygame.draw.line(win, color, (0, r * PIXEL_LEN + 1 + TOPBAR), (WIDTH, r * PIXEL_LEN + 1 + TOPBAR))
         # Thick grid... Don't like using the thickness parameter
     for c in range(COLS + 1):
-        pygame.draw.line(win, color, (c * PIXEL_LEN, 0), (c * PIXEL_LEN, HEIGHT))
-        pygame.draw.line(win, color, (c * PIXEL_LEN - 1, 0), (c * PIXEL_LEN - 1, HEIGHT))
+        pygame.draw.line(win, color, (c * PIXEL_LEN, TOPBAR), (c * PIXEL_LEN, HEIGHT))
+        pygame.draw.line(win, color, (c * PIXEL_LEN - 1, TOPBAR), (c * PIXEL_LEN - 1, HEIGHT))
 
 def get_text(font, text, color, back=None):
     txt_sfr = font.render(text, False, color, back)

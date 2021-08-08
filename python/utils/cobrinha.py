@@ -19,6 +19,7 @@ class Cobrinha:
         
         self.start = True
         self.end = False
+        self.pause = False
 
         self.len = 1
 
@@ -49,7 +50,7 @@ class Cobrinha:
     def draw(self, win):
         colors = self.get_color()
         if self.color1 != WHITE:
-            pygame.draw.rect(win, self.color1, (self.x * PIXEL_LEN, self.y * PIXEL_LEN, PIXEL_LEN, PIXEL_LEN))
+            pygame.draw.rect(win, self.color1, (self.x * PIXEL_LEN, self.y * PIXEL_LEN + TOPBAR, PIXEL_LEN, PIXEL_LEN))
         else:
             if self.left:
                 img = pygame.transform.rotate(self.euconut_cabeca, 90)
@@ -59,11 +60,11 @@ class Cobrinha:
                 img = pygame.transform.rotate(self.euconut_cabeca, 180)
             else:
                 img = self.euconut_cabeca
-            win.blit(img, (self.x * PIXEL_LEN, self.y * PIXEL_LEN))
+            win.blit(img, (self.x * PIXEL_LEN, self.y * PIXEL_LEN + TOPBAR))
         
         for i in range(len(self.cauda)):
             piece = self.cauda[i]
-            pygame.draw.rect(win, colors[i], (piece.x * PIXEL_LEN, piece.y * PIXEL_LEN, PIXEL_LEN, PIXEL_LEN))
+            pygame.draw.rect(win, colors[i], (piece.x * PIXEL_LEN, piece.y * PIXEL_LEN + TOPBAR, PIXEL_LEN, PIXEL_LEN))
 
 
     def update(self):
@@ -91,14 +92,17 @@ class Cobrinha:
             if self.x == piece.x and self.y == piece.y:
                 self.morre()
 
-    def morre(self):
-        self.som_perdeu.play()
+    def restart(self):
         self.x = 1
         self.y = 1
         self.cauda.clear()
-        self.end = True
         self.go_right()
+
+    def morre(self):
+        self.som_perdeu.play()
+        self.end = True
         pygame.mixer.music.stop()
+        self.restart()
 
         self.color1, self.color2 = choice([
             (BLUE, GREEN),
