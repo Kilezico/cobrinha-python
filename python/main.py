@@ -72,14 +72,17 @@ def main():
             elif not cobra.end:
                 if event.type == pygame.KEYDOWN:
                     if not cobra.mexeu:
-                        if event.key == pygame.K_a and not cobra.right:
+                        if (event.key == pygame.K_a or event.key == pygame.K_LEFT) and not cobra.right:
                             cobra.go_left()
-                        if event.key == pygame.K_w and not cobra.down:
+                        if (event.key == pygame.K_w or event.key == pygame.K_UP) and not cobra.down:
                             cobra.go_up()
-                        if event.key == pygame.K_s and not cobra.up:
+                        if (event.key == pygame.K_s or event.key == pygame.K_DOWN) and not cobra.up:
                             cobra.go_down()
-                        if event.key == pygame.K_d and not cobra.left:
+                        if (event.key == pygame.K_d or event.key == pygame.K_RIGHT) and not cobra.left:
                             cobra.go_right()
+                        if event.key == pygame.K_ESCAPE:
+                            cobra.pause = True
+                            pygame.mixer.music.pause()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == pygame.BUTTON_LEFT:
                         if pause_button.is_inside(pygame.mouse.get_pos()):
