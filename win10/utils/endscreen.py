@@ -37,11 +37,11 @@ def events(event, cobra):
     if event.type == pygame.MOUSEBUTTONDOWN:
         if event.button == pygame.BUTTON_LEFT:
             pos = pygame.mouse.get_pos()
-            cobra.len = 1
             if menu.is_inside(pos):
                 cobra.start = True
                 cobra.end = False
             if retry.is_inside(pos):
+                cobra.restart()
                 cobra.end = False
                 pygame.mixer.music.play(-1)
             if quit.is_inside(pos):

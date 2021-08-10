@@ -41,6 +41,9 @@ def event(event, cobra):
                     pygame.mixer.music.stop()
                 if resume.is_inside(pos):
                     resuming = True  
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                resuming = True
 
 def update():
     global resuming, resume_count, countdown

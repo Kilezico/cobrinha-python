@@ -96,13 +96,13 @@ class Cobrinha:
         self.x = 1
         self.y = 1
         self.cauda.clear()
+        self.len = 1
         self.go_right()
 
     def morre(self):
         self.som_perdeu.play()
         self.end = True
         pygame.mixer.music.stop()
-        self.restart()
 
         self.color1, self.color2 = choice([
             (BLUE, GREEN),
